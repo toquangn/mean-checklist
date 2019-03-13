@@ -76,4 +76,4 @@ typings/
 .fusebox/
 
 # For ignoring database configurations
-db-config.json
+db-config.js
