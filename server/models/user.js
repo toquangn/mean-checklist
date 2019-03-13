@@ -1,4 +1,4 @@
-const mongoose = require('mongoose') // Importing mongoose node module
+const mongoose = require('mongoose'); // Importing mongoose node module
 
 const Schema = mongoose.Schema; // Instantiates Schema class from mongoose
 const userSchema = new Schema({
@@ -6,4 +6,4 @@ const userSchema = new Schema({
   password: String
 });
 
-mongoose.exports = mongoose.model('user', userSchema, 'users'); // Exports 'user' defined by 'userSchema' to 'users' MongoDB collection
+module.exports = mongoose.model('user', userSchema, 'users'); // Exports 'user' defined by 'userSchema' to 'users' MongoDB collection

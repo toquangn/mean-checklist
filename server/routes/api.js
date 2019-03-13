@@ -22,16 +22,45 @@ mongoose.connect(uri, {useNewUrlParser: true}, (err) => {
 });
 
 // ============= REST SERVICES =================
+
+// Register service functionality:
+//  - Parses and creates User model from request body
+//  - Database verifies if username is available before sending error or saving to db
 router.post('/register', (req, res) => {
   let userData = req.body;
   let user = new User(userData);
 
-  user.save((err, registeredUser) => {
-      if (err){
-        console.log('REST API \'/register\' error: ', err);
+  User.findOne({ username: userData.username }, (err, user) => {
+    if (user){
+      res.status(401).send(`User \'${ user.username }\' already exists.`);
+    } else {
+        user.save((err, registeredUser) => {
+            if (err){
+              console.log('REST API \'/register\' error: ', err);
+            }
+            res.status(200).send(registeredUser);
+        });
+    }
+  });
+});
+
+// Login service functionality:
+//  - Parses and creates User model from request body
+//  - Database validates username and password before responding with error or user information
+router.post('/login', (req, res) => {
+  let userData = req.body;
+  let user = new User(userData);
+
+  User.findOne({ username: userData.username }, (err, user) => {
+    if (!user){
+      res.status(401).send(`Invalid username`);
+    } else {
+      if (user.password !== userData.password){
+        res.status(401).send(`Invalid password`);
       } else {
-        res.status(200).send(registeredUser);
+        res.status(200).send(user);
       }
+    }
   });
 });
 
