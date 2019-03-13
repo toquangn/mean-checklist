@@ -28,20 +28,26 @@ mongoose.connect(uri, {useNewUrlParser: true}, (err) => {
 //  - Database verifies if username is available before sending error or saving to db
 router.post('/register', (req, res) => {
   let userData = req.body;
-  let user = new User(userData);
+  let tempUser = new User(userData);
 
-  User.findOne({ username: userData.username }, (err, user) => {
-    if (user){
-      res.status(401).send(`User \'${ user.username }\' already exists.`);
-    } else {
-        user.save((err, registeredUser) => {
-            if (err){
-              console.log('REST API \'/register\' error: ', err);
-            }
-            res.status(200).send(registeredUser);
-        });
-    }
-  });
+  if (!tempUser.username){
+    res.status(401).send('Empty usernames are invalid');
+  } else  {
+    User.findOne({ username: userData.username }, (err, user) => {
+      if (user){
+        res.status(401).send(`User \'${ user.username }\' already exists.`);
+      } else {
+          tempUser.save((err, registeredUser) => {
+              if (err){
+                console.log('REST API \'/register\' error: ', err);
+              }
+              res.status(200).send(registeredUser);
+          });
+      }
+    });
+  }
+
+
 });
 
 // Login service functionality:
@@ -49,14 +55,14 @@ router.post('/register', (req, res) => {
 //  - Database validates username and password before responding with error or user information
 router.post('/login', (req, res) => {
   let userData = req.body;
-  let user = new User(userData);
+  let tempUser = new User(userData);
 
-  User.findOne({ username: userData.username }, (err, user) => {
+  User.findOne({ username: tempUser.username }, (err, user) => {
     if (!user){
-      res.status(401).send(`Invalid username`);
+      res.status(401).send('Invalid username');
     } else {
-      if (user.password !== userData.password){
-        res.status(401).send(`Invalid password`);
+      if (user.password !== tempUser.password){
+        res.status(401).send('Invalid password');
       } else {
         res.status(200).send(user);
       }
