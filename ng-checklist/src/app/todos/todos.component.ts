@@ -10,8 +10,13 @@ import { Todo } from '../../Todo';
   styleUrls: ['./todos.component.scss']
 })
 export class TodosComponent implements OnInit {
+  priorityDropdown = [{ priority: 1, label: "High" }, { priority: 2, label: "Medium" },{ priority: 3, label: "Low (Default)" }];
+
   retrievedUsername: string;
   todos: Todo[];
+
+  todoTitle: string;
+  todoPriority: number;
 
   constructor(private _route: ActivatedRoute, private _todo: TodoService) { }
 
@@ -23,20 +28,34 @@ export class TodosComponent implements OnInit {
     this.getTodos();
   }
 
+  addTodo(){
+    // Set to lowest priority if empty
+    if (!this.todoPriority){
+      this.todoPriority = 3;
+    }
+  }
+
   // Delete id, update list
+  /*
   deleteTodo(id){
-    var currentTodos = this.todos
     this._todo.deleteTodo(id)
       .subscribe(data => {
-        console.log(data);
+        if (data.n == 1){
+          this.getTodos();
+        }
       });
   }
+  */
 
   getTodos(){
     this._todo.getUserTodos(this.retrievedUsername)
       .subscribe((data:Todo[]) => {
         this.todos = data;
       });
+  }
+
+  print(){
+    alert(this.todoPriority);
   }
 
 }
