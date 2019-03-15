@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="jumbotron" style="text-align: center; background-color: white;">
-    <h1 *ngIf="retrievedUsername">Howdy, {{ retrievedUsername }}</h1>
+    <h1 *ngIf="username">Howdy, {{ username }}</h1>
   </div>
 </div>
 
@@ -10,8 +10,8 @@
     <option [ngValue]="undefined" disabled hidden selected> Priority </option>
     <option *ngFor="let opt of priorityDropdown" [value]="opt.priority"> {{ opt.priority}} - {{ opt.label}}</option>
   </select>
-  <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Things to do...">
-  <button (click)="print()">Click me</button>
+  <input type="text" class="form-control" aria-label="Text input with dropdown button" [(ngModel)]="todoTitle" placeholder="Things to do...">
+  <button (click)="addTodo()">Add Todo</button>
 </div>
 
 <div class="container mt-5 pt-5" *ngIf="todos?.length > 0">

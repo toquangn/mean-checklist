@@ -5,14 +5,20 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TodoService {
+  private userURL = 'http://localhost:3000/api/';
+  private todoURL = 'http://localhost:3000/api/todo/';
 
   constructor(private http: HttpClient) { }
 
   getUserTodos(username){
-    return this.http.get(`http://localhost:3000/api/${username}`);
+    return this.http.get(this.userURL + username);
   }
 
   deleteTodo(id){
-    return this.http.delete(`http://localhost:3000/api/todo/${id}`);
+    return this.http.delete(this.todoURL + id);
+  }
+
+  addTodo(todo){
+    return this.http.post(this.todoURL, todo);
   }
 }

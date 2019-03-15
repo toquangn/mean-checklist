@@ -12,7 +12,7 @@ import { Todo } from '../../Todo';
 export class TodosComponent implements OnInit {
   priorityDropdown = [{ priority: 1, label: "High" }, { priority: 2, label: "Medium" },{ priority: 3, label: "Low (Default)" }];
 
-  retrievedUsername: string;
+  username: string;
   todos: Todo[];
 
   todoTitle: string;
@@ -22,40 +22,44 @@ export class TodosComponent implements OnInit {
 
   ngOnInit() {
     this._route.queryParams.subscribe(params => {
-      this.retrievedUsername = params.username;
+      this.username = params.username;
     });
-
     this.getTodos();
   }
 
   addTodo(){
-    // Set to lowest priority if empty
+    const todoItem = { username: this.username, todo: this.todoTitle, complete: false, priority: this.todoPriority};
+
     if (!this.todoPriority){
-      this.todoPriority = 3;
+      this.todoPriority = 3; // Setting todo as lowest priority
     }
+    this._todo.addTodo(todoItem).subscribe( data => {
+      this.getTodos();
+      this.resetPage();
+    });
+
+
   }
 
   // Delete id, update list
-  /*
-  deleteTodo(id){
-    this._todo.deleteTodo(id)
-      .subscribe(data => {
-        if (data.n == 1){
-          this.getTodos();
-        }
-      });
+  deleteTodo(id) {
+    this._todo.deleteTodo(id).subscribe(successful => {
+      if (successful) {
+        this.getTodos();
+      }
+    });
   }
-  */
 
   getTodos(){
-    this._todo.getUserTodos(this.retrievedUsername)
+    this._todo.getUserTodos(this.username)
       .subscribe((data:Todo[]) => {
         this.todos = data;
       });
   }
 
-  print(){
-    alert(this.todoPriority);
+  resetPage(){
+    this.todoTitle = "";
+    this.todoPriority = undefined;
   }
 
 }

@@ -85,6 +85,25 @@ router.get('/:username', (req, res) => {
   });
 });
 
+
+// ============= REST SERVICES FOR TODOS =================
+// Add Todo item
+router.post('/todo', (req, res) => {
+  let userTodo = req.body;
+  let tempTodo = new Todo(userTodo);
+
+  if (!tempTodo.todo){
+    res.status(401).send('Empty todo items invalid');
+  } else  {
+      tempTodo.save((err, loggedTodoItem) => {
+          if (err){
+            console.log('REST API \'/todo\' error: ', err);
+          }
+          res.status(200).send(loggedTodoItem);
+      });
+    }
+});
+
 // Delete Todo item
 router.delete('/todo/:id', (req, res) => {
   Todo.deleteOne({_id: req.params.id }, function(err,removed){
