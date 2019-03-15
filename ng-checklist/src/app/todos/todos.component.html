@@ -5,16 +5,23 @@
   </div>
 </div>
 
-<div class="input-group pt-4 mx-auto" style="width: 80%;">
-  <select class="input-group-prepend" [(ngModel)]="todoPriority">
-    <option [ngValue]="undefined" disabled hidden selected> Priority </option>
-    <option *ngFor="let opt of priorityDropdown" [value]="opt.priority"> {{ opt.priority}} - {{ opt.label}}</option>
-  </select>
-  <input type="text" class="form-control" aria-label="Text input with dropdown button" [(ngModel)]="todoTitle" placeholder="Things to do...">
-  <button (click)="addTodo()">Add Todo</button>
+<div class="row pt-4">
+  <div class="col-11">
+    <div class="input-group mx-auto">
+      <select class="input-group-prepend" [(ngModel)]="todoPriority">
+        <option [ngValue]="undefined" disabled hidden selected> Priority </option>
+        <option *ngFor="let opt of priorityDropdown" [value]="opt.priority"> {{ opt.priority}} - {{ opt.label}}</option>
+      </select>
+      <input type="text" class="form-control" aria-label="Text input with dropdown button" [(ngModel)]="todoTitle" placeholder="Things to do...">
+    </div>
+  </div>
+  <div class="col-1">
+    <button type="button" class="btn btn-primary btn-md" (click)="addTodo()"><i class="fas fa-arrow-circle-right"></i></button>
+  </div>
 </div>
 
-<div class="container mt-5 pt-5" *ngIf="todos?.length > 0">
+
+<div class="container pt-4" *ngIf="todos?.length > 0">
   <div class="row pt-4" *ngFor="let item of todos;">
     <div class="col mx-auto">
       <div class="card round-0" style="width:85%">

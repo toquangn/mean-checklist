@@ -27,17 +27,18 @@ export class TodosComponent implements OnInit {
     this.getTodos();
   }
 
-  addTodo(){
-    const todoItem = { username: this.username, todo: this.todoTitle, complete: false, priority: this.todoPriority};
-
+  async addTodo(){
     if (!this.todoPriority){
       this.todoPriority = 3; // Setting todo as lowest priority
     }
-    this._todo.addTodo(todoItem).subscribe( data => {
+
+    const todoItem = await { username: this.username, todo: this.todoTitle, complete: false, priority: this.todoPriority};
+
+    await this._todo.addTodo(todoItem).subscribe( data => {
       this.getTodos();
-      this.resetPage();
     });
 
+    this.resetPage();
 
   }
 
