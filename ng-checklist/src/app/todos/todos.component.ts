@@ -63,6 +63,18 @@ export class TodosComponent implements OnInit {
     });
   }
 
+  // completeTodo functionality:
+  //  - Uses '_id' attribute inherent to mongodb's document architecture for completing todo
+  //  - Call and subscribe to updateTodo method from todo service using the associated document's _id attribute
+  //      - If successful, update the todos array
+  completeTodo(id) {
+    this._todo.completeTodo(id).subscribe(successful => {
+      if (successful) {
+        this.getTodos();
+      }
+    });
+  }
+
   // getTodos functionality:
   //  - Call and subscribe to getUserTodos method from the todo service
   //    - If successful, assign todos array to resulting JSON

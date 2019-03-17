@@ -111,15 +111,31 @@ router.post('/todo', (req, res) => {
 // Todos [DELETE] service functionality:
 //  - Uses mongoose deleteOne method to find and delete a Todo document based on _id property
 //  - _id is passed by Angular
-//  - If deletion is successful, sends response JSON
+//  - If deletion is successful, send response JSON
 router.delete('/todo/:id', (req, res) => {
   Todo.deleteOne({_id: req.params.id }, function(err,removed){
     if (err){
       console.log('REST API \'DELETE /todo/:id\' error: ', err);
-      res.send(err);
+      res.status(401).send(err);
     } else {
       res.json(removed);
     }
+  });
+});
+
+// Todos [PUT] service functionality:
+//  - Uses mongoose findByIdAndUpdate to find and update a Todo document based on _id property
+//  - _id is passed by Angular
+//  - If update is successful, sends updated model
+router.put('/todo/:id', (req, res) => {
+  Todo.findByIdAndUpdate(req.params.id, {
+    complete: true
+  }, {new: true}, function(err, updated){
+      if (err){
+        res.status(401).send(err);
+      } else {
+        res.status(200).send(updated);
+      }
   });
 });
 

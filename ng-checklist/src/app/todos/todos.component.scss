@@ -11,6 +11,14 @@
   background-color: #DC4C46;
 }
 
+span.completed{
+  background-color: lightgrey;
+}
+
+p.completed{
+  text-decoration: line-through;
+}
+
 // Text stiling for card
 .card-text {
   font-size: 1.75rem;

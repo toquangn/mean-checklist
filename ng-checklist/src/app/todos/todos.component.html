@@ -28,12 +28,13 @@
         <span class="card-header" style="padding: .25rem" [ngClass]="{
             'low' : item.priority == 3,
             'medium' : item.priority == 2,
-            'high' : item.priority == 1
+            'high' : item.priority == 1,
+            'completed': item.complete == true
          }"></span>
           <div class="card-body">
-            <p class="card-text">{{ item.todo }}</p>
+            <p class="card-text" [ngClass]="{'completed': item.complete == true }">{{ item.todo }}</p>
             <div class="text-right">
-              <button class="btn btn-primary btn-space"><i class="fa fa-check-square" aria-hidden="true"></i> Complete</button>
+              <button class="btn btn-primary btn-space" (click)="completeTodo(item._id)"><i class="fa fa-check-square" aria-hidden="true"></i> Complete</button>
               <button class="btn btn-danger" (click)="deleteTodo(item._id)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remove</button>
             </div>
           </div>
