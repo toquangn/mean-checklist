@@ -11,10 +11,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  // registerUser functionality:
+  //  - Takes in user object and returns observable from server
   registerUser(user){
     return this.http.post<any>(this.registerURL, user);
   }
 
+  // loginUser functionality:
+  //  - Takes in user object and returns observable from server
   loginUser(user){
     return this.http.post<any>(this.loginURL, user);
   }

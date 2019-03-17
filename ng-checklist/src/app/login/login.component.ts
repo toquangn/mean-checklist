@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => {
           console.log('login component - loginUser: ', res);
-          this._router.navigate(['/todos'], {queryParams: {username: res.username}});
+          this._router.navigate(['/todos'], {queryParams: {username: res.username}}); // Passes username information to todos component through url params
 
         },
         err => { alert(err.error); }

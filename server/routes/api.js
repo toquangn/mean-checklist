@@ -22,9 +22,9 @@ mongoose.connect(uri, {useNewUrlParser: true}, (err) => {
   }
 });
 
-// ============= REST SERVICES =================
+// ============= USER-RELATED REST SERVICES =================
 
-// Register service functionality:
+// Register [POST] service functionality:
 //  - Parses and creates User model from request body
 //  - Database verifies if username is available before sending error or saving to db
 router.post('/register', (req, res) => {
@@ -71,7 +71,10 @@ router.post('/login', (req, res) => {
   });
 });
 
-// GET user todos functionality:
+
+// ============= TODO-RELATED REST SERVICES =================
+
+// Todos [GET] service functionality:
 //  - Creates query based on username provided
 //  - Returns result of database query or error message if user cannot be found
 router.get('/:username', (req, res) => {
@@ -85,9 +88,10 @@ router.get('/:username', (req, res) => {
   });
 });
 
-
-// ============= REST SERVICES FOR TODOS =================
-// Add Todo item
+// Todos [POST] service functionality:
+//  - Instantiates a Todo object from the passed request body
+//  - Checks if todo property is valid (todo title is not empty)
+//    - If valid, saves into database
 router.post('/todo', (req, res) => {
   let userTodo = req.body;
   let tempTodo = new Todo(userTodo);
@@ -104,7 +108,10 @@ router.post('/todo', (req, res) => {
     }
 });
 
-// Delete Todo item
+// Todos [DELETE] service functionality:
+//  - Uses mongoose deleteOne method to find and delete a Todo document based on _id property
+//  - _id is passed by Angular
+//  - If deletion is successful, sends response JSON
 router.delete('/todo/:id', (req, res) => {
   Todo.deleteOne({_id: req.params.id }, function(err,removed){
     if (err){
