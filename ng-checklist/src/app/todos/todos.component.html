@@ -1,19 +1,19 @@
 
-<div class="container">
-  <div class="jumbotron" style="text-align: center; background-color: white;">
-    <h1 *ngIf="username">Howdy, {{ username }}</h1>
+<div class="row" style="height: 15%">
+  <div class="col pb-3" style="background-color: #547b90;">
+    <h1 class= "text-light" *ngIf="username">Howdy, {{ username }}</h1>
   </div>
 </div>
 
-<div class="row pt-4 text-center">
-  <div class="col">
+<div class="row">
+  <div class="col pt-5">
     <div class="input-group mx-auto">
       <select class="input-group-prepend" [(ngModel)]="todoPriority">
         <option [ngValue]="undefined" disabled hidden selected> Priority </option>
         <option *ngFor="let opt of priorityDropdown" [value]="opt.priority"> {{ opt.priority}} - {{ opt.label}}</option>
       </select>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button" [(ngModel)]="todoTitle" placeholder="Things to do...">
-      <button type="button" class="btn btn-primary btn-md" (click)="addTodo()"><i class="fas fa-arrow-circle-right"></i></button>
+      <input type="text" class="form-control" aria-label="Text input with dropdown button" [(ngModel)]="todoTitle" placeholder="Things to do..." (keydown.enter)="addTodo()">
+      <button type="button" class="btn btn-primary btn-md" (click)="addTodo()" ><i class="fas fa-arrow-circle-right"></i></button>
     </div>
   </div>
 </div>
