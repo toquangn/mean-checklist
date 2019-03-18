@@ -12,10 +12,17 @@
 }
 
 span.completed{
-  background-color: lightgrey;
+  background-color: #a9a9a9;
 }
 
 p.completed{
+  color: gray;
+  text-decoration: line-through;
+}
+
+button.completed{
+  background-color: gray;
+  border-color: gray;
   text-decoration: line-through;
 }
 
@@ -27,4 +34,9 @@ p.completed{
 // Button styling
 .btn-space {
     margin-right: 5px;
+}
+
+.input-group {
+  width: 75%;
+  padding-right: 5%;
 }

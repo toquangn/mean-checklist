@@ -5,18 +5,16 @@
   </div>
 </div>
 
-<div class="row pt-4">
-  <div class="col-11">
+<div class="row pt-4 text-center">
+  <div class="col">
     <div class="input-group mx-auto">
       <select class="input-group-prepend" [(ngModel)]="todoPriority">
         <option [ngValue]="undefined" disabled hidden selected> Priority </option>
         <option *ngFor="let opt of priorityDropdown" [value]="opt.priority"> {{ opt.priority}} - {{ opt.label}}</option>
       </select>
       <input type="text" class="form-control" aria-label="Text input with dropdown button" [(ngModel)]="todoTitle" placeholder="Things to do...">
+      <button type="button" class="btn btn-primary btn-md" (click)="addTodo()"><i class="fas fa-arrow-circle-right"></i></button>
     </div>
-  </div>
-  <div class="col-1">
-    <button type="button" class="btn btn-primary btn-md" (click)="addTodo()"><i class="fas fa-arrow-circle-right"></i></button>
   </div>
 </div>
 
@@ -34,7 +32,7 @@
           <div class="card-body">
             <p class="card-text" [ngClass]="{'completed': item.complete == true }">{{ item.todo }}</p>
             <div class="text-right">
-              <button class="btn btn-primary btn-space" (click)="completeTodo(item._id)"><i class="fa fa-check-square" aria-hidden="true"></i> Complete</button>
+              <button class="btn btn-primary btn-space" (click)="completeTodo(item._id)" [ngClass]="{'completed': item.complete == true }" [disabled]="item.complete == true"><i class="fa fa-check-square" aria-hidden="true" ></i> Complete</button>
               <button class="btn btn-danger" (click)="deleteTodo(item._id)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remove</button>
             </div>
           </div>

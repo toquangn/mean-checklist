@@ -25,7 +25,7 @@ export class TodoService {
   // completeTodo functionality:
   //  - Takes in a todo id and returns observable from server
   completeTodo(id){
-    return this.http.put(this.todoURL + id);
+    return this.http.get(this.todoURL + id);
   }
 
   // addTodo functionality:

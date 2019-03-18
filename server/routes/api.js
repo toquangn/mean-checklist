@@ -123,11 +123,11 @@ router.delete('/todo/:id', (req, res) => {
   });
 });
 
-// Todos [PUT] service functionality:
+// Todos [GET] service functionality:
 //  - Uses mongoose findByIdAndUpdate to find and update a Todo document based on _id property
 //  - _id is passed by Angular
 //  - If update is successful, sends updated model
-router.put('/todo/:id', (req, res) => {
+router.get('/todo/:id', (req, res) => {
   Todo.findByIdAndUpdate(req.params.id, {
     complete: true
   }, {new: true}, function(err, updated){
