@@ -2,6 +2,7 @@
 const express = require('express'); // Importing express from node modules
 const router = express.Router(); // Instantiating Router class to route web services from server.js to api.js
 const mongoose = require('mongoose') // Importing mongoose from node modules
+const jwt = require('jsonwebtoken');
 const db = require('../db-config'); // Importing locally stored db-config file
 
 // ============= DATA MODEL IMPORT =================
@@ -42,7 +43,9 @@ router.post('/register', (req, res) => {
               if (err){
                 console.log('REST API \'/register\' error: ', err);
               }
-              res.status(200).send(registeredUser);
+              let payload = { subject: registeredUser._id };
+              let token = jwt.sign(payload, 'secretKey');
+              res.status(200).send({username: registeredUser.username, token});
           });
       }
     });
@@ -65,7 +68,9 @@ router.post('/login', (req, res) => {
       if (user.password !== tempUser.password){
         res.status(401).send('Invalid password');
       } else {
-        res.status(200).send(user);
+        let payload = { subject: user._id, password: user.password };
+        let token = jwt.sign(payload, 'secretKey');
+        res.status(200).send({username: user.username, token});
       }
     }
   });
