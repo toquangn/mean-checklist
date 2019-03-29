@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
     this._auth.loginUser(this.loginUserData)
       .subscribe(
         res => {
-          console.log('login component - loginUser: ', res);
+          //console.log('login component - loginUser: ', res);
+          localStorage.setItem('token', res.token);
           this._router.navigate(['/todos'], {queryParams: {username: res.username}}); // Passes username information to todos component through url params
 
         },

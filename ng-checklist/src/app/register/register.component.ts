@@ -20,7 +20,8 @@ export class RegisterComponent implements OnInit {
     this._auth.registerUser(this.registerUserData)
       .subscribe(
         res => {
-          console.log('register component - registerUser: ', res);
+          //console.log('register component - registerUser: ', res);
+          localStorage.setItem('token', res.token);
           this._router.navigate(['/todos'], {queryParams: {username: res.username}}); // Passes username information to todos component through url params
         },
         err => { alert(err.error); }
