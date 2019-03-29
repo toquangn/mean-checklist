@@ -12,6 +12,8 @@ import { TodosComponent } from './todos/todos.component';
 import { AuthService } from './auth.service';
 import { TodoService } from './todo.service';
 
+import { AuthGuard } from './auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,7 @@ import { TodoService } from './todo.service';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AuthService, TodoService],
+  providers: [AuthService, TodoService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

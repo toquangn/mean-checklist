@@ -22,4 +22,10 @@ export class AuthService {
   loginUser(user){
     return this.http.post<any>(this.loginURL, user);
   }
+
+  // loggedIn functionality:
+  //  - Return boolean to verify if token exists within local storage
+  loggedIn(){
+    return localStorage.hasOwnProperty('token');
+  }
 }
