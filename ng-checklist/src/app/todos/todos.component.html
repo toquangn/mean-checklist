@@ -7,7 +7,7 @@
 
 <div class="row entrybar">
   <div class="col pt-5">
-    <div class="input-group mx-auto">
+    <div class="input-group input-group-lg mx-auto">
       <select class="input-group-prepend" [(ngModel)]="todoPriority">
         <option [ngValue]="undefined" disabled hidden selected> Priority </option>
         <option *ngFor="let opt of priorityDropdown" [value]="opt.priority"> {{ opt.priority}} - {{ opt.label}}</option>
