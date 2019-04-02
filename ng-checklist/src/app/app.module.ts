@@ -15,6 +15,8 @@ import { TokenInterceptorService } from './token-interceptor.service';
 
 import { AuthGuard } from './auth.guard';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import { AuthGuard } from './auth.guard';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxPaginationModule
   ],
   providers: [AuthService, TodoService, AuthGuard,
   {

@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row entrybar">
   <div class="col pt-5">
     <div class="input-group mx-auto">
       <select class="input-group-prepend" [(ngModel)]="todoPriority">
@@ -20,7 +20,7 @@
 
 
 <div class="container pt-4" *ngIf="todos?.length > 0">
-  <div class="row pt-4" *ngFor="let item of todos;">
+  <div class="row pt-4" *ngFor="let item of todos | paginate: { itemsPerPage: 4, currentPage: p };">
     <div class="col mx-auto">
       <div class="card round-0" style="width:85%">
         <span class="card-header" style="padding: .25rem" [ngClass]="{
@@ -37,6 +37,11 @@
             </div>
           </div>
       </div>
+    </div>
+  </div>
+  <div class="row pt-4">
+    <div class="col mx-auto">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
 </div>
