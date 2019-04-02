@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TodoService } from '../todo.service';
 import { Todo } from '../../todo';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -18,13 +19,13 @@ export class TodosComponent implements OnInit {
   todoTitle: string;
   todoPriority: number;
 
-  constructor(private _route: ActivatedRoute, private _todo: TodoService) { }
+  constructor(private _router: Router, private _route: ActivatedRoute, private _todo: TodoService) { }
 
   // On initiation functionality:
   //  - Set username variable as username passed by register/login component with queryParams
   //  - Get todo list for corresponding username and assign it to todos array
   ngOnInit() {
-    this._route.queryParams.subscribe(params => {
+    this._route.queryParams.subscribe( params => {
       this.username = params.username;
     });
     this.getTodos();
@@ -82,6 +83,13 @@ export class TodosComponent implements OnInit {
     this._todo.getUserTodos(this.username)
       .subscribe((data:Todo[]) => {
         this.todos = data;
+      },
+      err => {
+        if (err instanceof HttpErrorResponse){
+          if (err.status === 401){
+             this._router.navigate(['/login']);
+          }
+        }
       });
   }
 

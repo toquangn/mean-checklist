@@ -28,4 +28,10 @@ export class AuthService {
   loggedIn(){
     return localStorage.hasOwnProperty('token');
   }
+
+  // getToken functionality:
+  // - Return token from local storage
+  getToken(){
+    return localStorage.getItem('token');
+  }
 }

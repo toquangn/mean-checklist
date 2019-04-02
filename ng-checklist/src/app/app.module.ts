@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -11,6 +11,7 @@ import { TodosComponent } from './todos/todos.component';
 
 import { AuthService } from './auth.service';
 import { TodoService } from './todo.service';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 import { AuthGuard } from './auth.guard';
 
@@ -27,7 +28,12 @@ import { AuthGuard } from './auth.guard';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AuthService, TodoService, AuthGuard],
+  providers: [AuthService, TodoService, AuthGuard,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -23,6 +23,34 @@ mongoose.connect(uri, {useNewUrlParser: true}, (err) => {
   }
 });
 
+// verifyToken functionality:
+//  - Functions as a middleware that checks the request header for an existing authorization property
+//  - If authorization property is found and not null, check the auth token against signed jwt secret key
+function verifyToken(req, res, next) {
+  // Checking for authorization property
+  if (!req.headers.authorization){
+    return res.status(401).send('Unauthorized request');
+  }
+
+  // Checking for non-empty token item within authorization property
+  let token = req.headers.authorization.split(' ')[1];
+  if (token === 'null'){
+    return res.status(401).send('Unauthorized request');
+  }
+
+  // Checking if token's secret key matches
+  let payload =  jwt.verify(token, 'secretKey');
+  if (!payload ){
+    return res.status(401).send('Unauthorized request');
+  }
+
+  // Success Case:
+  //  - Set userId as payload subject
+  userId = payload.subject;
+  next();
+
+}
+
 // ============= USER-RELATED REST SERVICES =================
 
 // Register [POST] service functionality:
@@ -82,7 +110,7 @@ router.post('/login', (req, res) => {
 // Todos [GET] service functionality:
 //  - Creates query based on username provided
 //  - Returns result of database query or error message if user cannot be found
-router.get('/:username', (req, res) => {
+router.get('/:username', verifyToken, (req, res) => {
   var query  = Todo.where({ username: req.params.username }); // req.params.username set by '/:username' (FROM URL)
   query.find(function (err, userInfo) {
         if (err){
