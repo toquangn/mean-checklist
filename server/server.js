@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');  // Allows for parsing of server requ
 const cors = require('cors'); // Import cors node package to resolve cross-origin issues
 
 // ============= SERVER SETUP & STARTUP =================
-const PORT = 3000;  // Defines port number for server to listen to
+//const PORT = 3000;  // Defines port number for server to listen to
+const PORT = process.env.PORT; // For Heroku deployment
 const app = express();  // Instantiates app as an express object
 const api = require('./routes/api'); // Imports api.js
 app.use(cors());  // Allows for cross origin resource access
