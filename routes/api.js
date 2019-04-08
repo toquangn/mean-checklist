@@ -3,7 +3,7 @@ const express = require('express'); // Importing express from node modules
 const router = express.Router(); // Instantiating Router class to route web services from server.js to api.js
 const mongoose = require('mongoose') // Importing mongoose from node modules
 const jwt = require('jsonwebtoken');
-const db = require('../db-config'); // Importing locally stored db-config file
+//const db = require('../db-config'); // Importing locally stored db-config file
 
 // ============= DATA MODEL IMPORT =================
 const User = require('../models/user');
@@ -12,7 +12,7 @@ const Todo = require('../models/todo');
 // ============= DATABASE SETUP & ESTABLISH CONNECTION =================
 
 // Uses credentials stored in config.js to access database
-const uri = `mongodb+srv://${db.user}:${db.password}@checklistdb-pvvyv.mongodb.net/${db.database}?retryWrites=true`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PW}@checklistdb-pvvyv.mongodb.net/${process.env.DB}?retryWrites=true`;
 
 // Establishes connection to database based on uri
 mongoose.connect(uri, {useNewUrlParser: true}, (err) => {
