@@ -13,7 +13,7 @@ app.use('/api', api); // Uses api route for REST services
 
 if(process.env.NODE_ENV === 'production'){
     //set static folder
-    app.use(express.static('ng-checklist/src/app'));
+    app.use(express.static('ng-checklist/src'));
 }
 app.get('*',(req, res) => {
     res.sendFile(path.resolve(__dirname, 'ng-checklist', 'src', 'index.html'));
