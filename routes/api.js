@@ -3,11 +3,11 @@ const express = require('express'); // Importing express from node modules
 const router = express.Router(); // Instantiating Router class to route web services from server.js to api.js
 const mongoose = require('mongoose') // Importing mongoose from node modules
 const jwt = require('jsonwebtoken');
-const db = require('./db-config'); // Importing locally stored db-config file
+const db = require('../db-config'); // Importing locally stored db-config file
 
 // ============= DATA MODEL IMPORT =================
-const User = require('./models/user');
-const Todo = require('./models/todo');
+const User = require('../models/user');
+const Todo = require('../models/todo');
 
 // ============= DATABASE SETUP & ESTABLISH CONNECTION =================
 
