@@ -7,6 +7,7 @@ const cors = require('cors'); // Import cors node package to resolve cross-origi
 const PORT = process.env.PORT || 3000;  // Defines port number for server to listen to
 const app = express();  // Instantiates app as an express object
 const api = require('./routes/api'); // Imports api.js
+app.use(express.static(__dirname + '/dist'));
 app.use(cors());  // Allows for cross origin resource access
 app.use(bodyParser.json()); // Specifies body-parser to handle json files
 app.use('/api', api); // Uses api route for REST services
