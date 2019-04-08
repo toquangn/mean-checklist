@@ -13,11 +13,8 @@ app.use('/api', api); // Uses api route for REST services
 
 if(process.env.NODE_ENV === 'production'){
     //set static folder
-    app.use(express.static(path.join(__dirname, 'ng-checklist/src')));
+    app.use(express.static(__dirname + '/build'));
 }
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'ng-checklist/src/index.html'));
-});
 
 app.listen( PORT,function(){
   console.log('Server runing on localhost:' + PORT);
