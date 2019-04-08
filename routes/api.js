@@ -22,6 +22,13 @@ mongoose.connect(uri, {useNewUrlParser: true}, (err) => {
   }
 });
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
 // verifyToken functionality:
 //  - Functions as a middleware that checks the request header for an existing authorization property
 //  - If authorization property is found and not null, check the auth token against signed jwt secret key
