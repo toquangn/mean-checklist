@@ -11,22 +11,24 @@ app.use(cors());  // Allows for cross origin resource access
 app.use(bodyParser.json()); // Specifies body-parser to handle json files
 app.use('/api', api); // Uses api route for REST services
 
-if(process.env.NODE_ENV === 'production'){
-    //set static folder
-    app.use(express.static(path.join(__dirname, 'dist')));
-}
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + 'dist/index.html'));
-});
-
 app.listen( PORT,function(){
   console.log('Server runing on localhost:' + PORT);
 });
 
+if(process.env.NODE_ENV === 'production'){
+    //set static folder
+    app.use(express.static(path.join(__dirname, 'ng-checklist', 'dist')));
+}
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + 'ng-checklist/dist/index.html'));
+});
+
 // ============= REST SERVICES =================
 
+/*
 // GET request at root
 app.get('/', function(req, res){
   res.send('Hello from server');
 });
+*/
