@@ -19,11 +19,11 @@ app.listen( PORT,function(){
 
 if(process.env.NODE_ENV === 'production'){
     //set static folder
-    app.use(express.static(path.join(__dirname, 'ng-checklist', 'dist')));
+    app.use(express.static(path.join(__dirname, '/ng-checklist/dist')));
 }
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + 'ng-checklist/dist/index.html'));
+  res.sendFile(path.join(__dirname + '/ng-checklist/dist/index.html'));
 });
 
 // ============= REST SERVICES =================
