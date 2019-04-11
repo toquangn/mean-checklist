@@ -10,6 +10,8 @@ const api = require('./routes/api'); // Imports api.js
 app.use(cors());  // Allows for cross origin resource access
 app.use(bodyParser.json()); // Specifies body-parser to handle json files
 app.use('/api', api); // Uses api route for REST services
+var path = require("path");
+
 
 app.listen( PORT,function(){
   console.log('Server runing on localhost:' + PORT);
