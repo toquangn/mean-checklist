@@ -117,7 +117,7 @@ router.get('/:username', verifyToken, (req, res) => {
         } else {
           res.json(userInfo);
         }
-  }).sort({ complete: -1 });
+  }).sort({ complete: 1 });
 });
 
 // Todos [POST] service functionality:
