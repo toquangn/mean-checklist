@@ -111,7 +111,7 @@ router.post('/login', (req, res) => {
 //  - Returns result of database query or error message if user cannot be found
 router.get('/:username', verifyToken, (req, res) => {
   var query  = Todo.where({ username: req.params.username }); // req.params.username set by '/:username' (FROM URL)
-  query.find(function (err, userInfo) {
+  query.find(function (err, userInfo).sort({ complete: -1 }) {
         if (err){
           res.status(401).send('User not found: ' + err);
         } else {
