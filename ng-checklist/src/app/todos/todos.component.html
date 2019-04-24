@@ -6,8 +6,8 @@
 </div>
 
 <div class="row entrybar">
-  <div class="col pt-5">
-    <div class="input-group input-group-lg mx-auto">
+  <div class="col pt-5 mx-auto" style="min-width: 400px;">
+    <div class="input-group input-group-lg">
       <select class="input-group-prepend" [(ngModel)]="todoPriority">
         <option [ngValue]="undefined" disabled hidden selected> Priority </option>
         <option *ngFor="let opt of priorityDropdown" [value]="opt.priority"> {{ opt.priority}} - {{ opt.label}}</option>
@@ -21,8 +21,8 @@
 
 <div class="container pt-4" *ngIf="todos?.length > 0">
   <div class="row pt-4" *ngFor="let item of todos | paginate: { itemsPerPage: 4, currentPage: p };">
-    <div class="col mx-auto">
-      <div class="card round-0" style="width:85%">
+    <div class="col">
+      <div class="todo-card card round-0 mx-auto">
         <span class="card-header" style="padding: .25rem" [ngClass]="{
             'low' : item.priority == 3,
             'medium' : item.priority == 2,
