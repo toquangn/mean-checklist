@@ -20,9 +20,9 @@
 
 
 <div class="container pt-4" *ngIf="todos?.length > 0">
-  <div class="row pt-4" *ngFor="let item of todos | paginate: { itemsPerPage: 4, currentPage: p };">
+  <div class="row pt-4 justify-content-center" *ngFor="let item of todos | paginate: { itemsPerPage: 4, currentPage: p };">
     <div class="col mx-auto">
-      <div class="card round-0" style="width:85%">
+      <div class="card round-0">
         <span class="card-header" style="padding: .25rem" [ngClass]="{
             'low' : item.priority == 3,
             'medium' : item.priority == 2,
